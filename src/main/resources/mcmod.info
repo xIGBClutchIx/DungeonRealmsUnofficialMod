@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "DungeonRealmsUnofficialMod",
+    "name": "Dungeon Realms Unofficial Mod",
+    "description": "Dungeon Realms Unofficial Mod.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["xIGBClutchIx"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

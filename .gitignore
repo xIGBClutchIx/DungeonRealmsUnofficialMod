@@ -1,0 +1,10 @@
+*.bat
+*.iml
+*.ipr
+*.iws
+/.idea
+/.gradle
+/build
+/eclipse
+/gradle
+/run
