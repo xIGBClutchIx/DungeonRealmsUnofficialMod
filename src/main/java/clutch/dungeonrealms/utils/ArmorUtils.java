@@ -5,6 +5,7 @@ import clutch.dungeonrealms.modifiers.armor.*;
 import clutch.dungeonrealms.modifiers.armor.health.HealthPoints;
 import clutch.dungeonrealms.modifiers.armor.health.HealthRegen;
 import clutch.dungeonrealms.modifiers.armor.resistance.FireResistance;
+import clutch.dungeonrealms.modifiers.armor.resistance.IceResistance;
 import clutch.dungeonrealms.modifiers.armor.resistance.PoisonResistance;
 import clutch.dungeonrealms.modifiers.armor.stats.Dexterity;
 import clutch.dungeonrealms.modifiers.armor.stats.Intellect;
@@ -40,7 +41,7 @@ public class ArmorUtils {
             case "fireResistance":
                 return new FireResistance(tagCompound.getInteger(modifierString));
             case "iceResistance":
-                return new PoisonResistance(tagCompound.getInteger(modifierString));
+                return new IceResistance(tagCompound.getInteger(modifierString));
             case "poisonResistance":
                 return new PoisonResistance(tagCompound.getInteger(modifierString));
             case "dexterity":

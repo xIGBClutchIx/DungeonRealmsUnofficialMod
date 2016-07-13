@@ -15,6 +15,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 version = "Beta-1.1"
 group = "clutch.dungeonrealms"
 archivesBaseName = "DungeonRealmsUnofficialMod"
+sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
 minecraft {
