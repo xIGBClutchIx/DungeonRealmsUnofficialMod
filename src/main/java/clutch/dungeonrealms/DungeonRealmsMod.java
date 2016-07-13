@@ -5,10 +5,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "DungeonRealmsUnofficialMod", version = "Beta-1.0", clientSideOnly = true, acceptedMinecraftVersions="[1.9.4,1.10.2]")
+@Mod(modid = "DungeonRealmsUnofficialMod", version = "Beta-1.1", clientSideOnly = true, acceptedMinecraftVersions="[1.9.4,1.10.2]")
 public class DungeonRealmsMod {
 
     @EventHandler
@@ -18,6 +17,7 @@ public class DungeonRealmsMod {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(RenderOverlay.instance());
+        MinecraftForge.EVENT_BUS.register(new RenderOverlay());
+        MinecraftForge.EVENT_BUS.register(new ArmorTooltipCompare());
     }
 }

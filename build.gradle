@@ -12,9 +12,10 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "Beta-1.0"
-group= "clutch.dungeonrealms"
+version = "Beta-1.1"
+group = "clutch.dungeonrealms"
 archivesBaseName = "DungeonRealmsUnofficialMod"
+targetCompatibility = "1.7"
 
 minecraft {
     version = "1.10.2-12.18.0.2008"

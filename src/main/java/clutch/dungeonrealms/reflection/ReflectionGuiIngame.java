@@ -8,26 +8,28 @@ import java.lang.reflect.Field;
 
 public class ReflectionGuiIngame {
 
-    public static int remainingHighlightTicks() {
-        int remainingHighlightTicks = 0;
-        try {
-            Field field = GuiIngame.class.getDeclaredField(ReflectionUtils.getFieldName("remainingHighlightTicks", "field_92017_k"));
-            field.setAccessible(true);
-            remainingHighlightTicks = (Integer) field.get(Minecraft.getMinecraft().ingameGUI);
-        } catch (IllegalAccessException ignored) {
-        } catch (NoSuchFieldException ignored) {}
-        return remainingHighlightTicks;
+    private static final String HIGHLIGHT_TICKS_NAME = "remainingHighlightTicks";
+    private static final String HIGHLIGHT_TICKS_SRG = "field_92017_k";
+
+    private static final String HIGHLIGHT_ITEMSTACK_NAME = "highlightingItemStack";
+    private static final String HIGHLIGHT_ITEMSTACK_SRG = "field_92016_l";
+
+    public static int getRemainingHighlightTicks() {
+        return (Integer) getObjectFromField(HIGHLIGHT_TICKS_NAME, HIGHLIGHT_TICKS_SRG);
     }
 
+    public static ItemStack getHighlightingItemStack() {
+        return (ItemStack) getObjectFromField(HIGHLIGHT_ITEMSTACK_NAME, HIGHLIGHT_ITEMSTACK_SRG);
+    }
 
-    public static ItemStack highlightingItemStack() {
-        ItemStack highlightingItemStack = null;
+    private static Object getObjectFromField(String name, String srg) {
+        Object object = null;
         try {
-            Field field = GuiIngame.class.getDeclaredField(ReflectionUtils.getFieldName("highlightingItemStack", "field_92016_l"));
+            Field field = GuiIngame.class.getDeclaredField(ReflectionUtils.getFieldName(name, srg));
             field.setAccessible(true);
-            highlightingItemStack = (ItemStack) field.get(Minecraft.getMinecraft().ingameGUI);
+            object = field.get(Minecraft.getMinecraft().ingameGUI);
         } catch (IllegalAccessException ignored) {
         } catch (NoSuchFieldException ignored) {}
-        return highlightingItemStack;
+        return object;
     }
 }

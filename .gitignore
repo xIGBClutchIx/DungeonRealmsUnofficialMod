@@ -5,6 +5,7 @@
 /.idea
 /.gradle
 /build
+/out
 /eclipse
 /gradle
 /run
