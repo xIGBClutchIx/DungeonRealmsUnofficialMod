@@ -5,7 +5,6 @@ import clutch.dungeonrealms.utils.ItemStackUtils;
 import clutch.dungeonrealms.utils.ProfessionsUtils;
 import clutch.dungeonrealms.utils.RealmRuneUtils;
 import clutch.dungeonrealms.utils.RenderUtils;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;

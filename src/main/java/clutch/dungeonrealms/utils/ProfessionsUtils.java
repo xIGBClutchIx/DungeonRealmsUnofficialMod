@@ -13,8 +13,8 @@ public class ProfessionsUtils {
         if (maxXp != 0) {
             xpBar = "" + TextFormatting.GRAY + currentXp + " " +  xpBar;
         }
-        double percentXp = (double) (Math.round(100.0D * Double.parseDouble((new DecimalFormat("##.#").format((currentXp / maxXp))))));
-        if (percentXp <= 0 && maxXp > 0) {
+        double percentXp = (double) (Math.round(100.0D * Double.parseDouble((new DecimalFormat("##.#").format(((double)currentXp / (double)maxXp))))));
+        if (percentXp <= 0 && (double) maxXp > 0) {
             percentXp = 1;
         }
         double percentInterval = (100.0D / 50);
