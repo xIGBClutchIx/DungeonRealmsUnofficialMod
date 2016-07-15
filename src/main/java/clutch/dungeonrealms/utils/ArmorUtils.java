@@ -32,6 +32,89 @@ public class ArmorUtils {
         return modifiers;
     }
 
+    public static Modifier checkModifier(String currentModifier, Modifier modifier) {
+        if (modifier != null) return modifier;
+        switch (currentModifier) {
+            case "healthPoints":
+                return new HealthPoints(0);
+            case "healthRegen":
+                return new HealthRegen(0);
+            case "fireResistance":
+                return new FireResistance(0);
+            case "iceResistance":
+                return new IceResistance(0);
+            case "poisonResistance":
+                return new PoisonResistance(0);
+            case "dexterity":
+                return new Dexterity(0);
+            case "intellect":
+                return new Intellect(0);
+            case "strength":
+                return new Strength(0);
+            case "vitality":
+                return new Vitality(0);
+            case "armor":
+                return new Armor(0, 0);
+            case "block":
+                return new Block(0);
+            case "dodge":
+                return new Dodge(0);
+            case "dps":
+                return new Dps(0, 0);
+            case "energyRegen":
+                return new EnergyRegen(0);
+            case "itemFind":
+                return new ItemFind(0);
+            case "reflection":
+                return new Reflection(0);
+            case "thorns":
+                return new Thorns(0);
+            default:
+                return modifier;
+        }
+    }
+
+    public static int getValueFromModifier(Modifier modifier) {
+        switch (modifier.getName()) {
+            case "healthPoints":
+                return ((HealthPoints) modifier).getHealthPoints();
+            case "healthRegen":
+                return ((HealthRegen) modifier).getHealthRegen();
+            case "fireResistance":
+                return ((FireResistance) modifier).getFireResistance();
+            case "iceResistance":
+                return ((IceResistance) modifier).getIceResistance();
+            case "poisonResistance":
+                return ((PoisonResistance) modifier).getPoisonResistance();
+            case "dexterity":
+                return ((Dexterity) modifier).getDexterity();
+            case "intellect":
+                return ((Intellect) modifier).getIntellect();
+            case "strength":
+                return ((Strength) modifier).getStrength();
+            case "vitality":
+                return ((Vitality) modifier).getVitality();
+            case "armor":
+                return ((Armor) modifier).getArmorMax();
+            case "block":
+                return ((Block) modifier).getBlock();
+            case "dodge":
+                return ((Dodge) modifier).getDodge();
+            case "dps":
+                return ((Dps) modifier).getDpsMax();
+            case "energyRegen":
+                return ((EnergyRegen) modifier).getEnergyRegen();
+            case "itemFind":
+                return ((ItemFind) modifier).getItemFind();
+            case "reflection":
+                return ((Reflection) modifier).getReflection();
+            case "thorns":
+                return ((Thorns) modifier).getThorns();
+            default:
+                return 0;
+        }
+    }
+
     public static Modifier getModifier(String modifierString, NBTTagCompound tagCompound) {
         switch (modifierString) {
             case "healthPoints":
