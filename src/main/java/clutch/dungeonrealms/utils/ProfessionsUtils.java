@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 public class ProfessionsUtils {
 
     public static String getXPBar(int currentXp, int maxXp) {
+        if (currentXp == 0 && maxXp == 0) return "";
         String xpBar =  TextFormatting.GREEN + "";
         if (maxXp != 0) {
             xpBar = "" + TextFormatting.GRAY + currentXp + " " +  xpBar;

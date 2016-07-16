@@ -28,8 +28,8 @@ public class ReflectionGuiIngame {
             Field field = GuiIngame.class.getDeclaredField(ReflectionUtils.getFieldName(name, srg));
             field.setAccessible(true);
             object = field.get(Minecraft.getMinecraft().ingameGUI);
-        } catch (IllegalAccessException ignored) {
-        } catch (NoSuchFieldException ignored) {}
+        } catch (IllegalAccessException | NoSuchFieldException ignored) {
+        }
         return object;
     }
 }

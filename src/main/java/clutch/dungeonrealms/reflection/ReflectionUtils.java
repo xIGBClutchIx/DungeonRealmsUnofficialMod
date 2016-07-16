@@ -9,8 +9,7 @@ public class ReflectionUtils {
     public static void init() {
         try  {
             GuiIngame.class.getDeclaredField("remainingHighlightTicks");
-        } catch (SecurityException ignored) {
-        } catch (NoSuchFieldException ex) {
+        } catch (SecurityException | NoSuchFieldException ex) {
             srgNames = true;
         }
     }
