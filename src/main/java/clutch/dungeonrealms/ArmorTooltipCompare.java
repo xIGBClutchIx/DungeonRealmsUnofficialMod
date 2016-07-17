@@ -8,16 +8,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ArmorTooltipCompare {
 
-    private static final List<String> MODIFIERS_TO_COMPARE = Arrays.asList(new String[]{"armor", "healthPoints", "healthRegen", "energyRegen", "dps",
+    private static final List<String> MODIFIERS_TO_COMPARE = Arrays.asList("armor", "healthPoints", "healthRegen", "energyRegen", "dps",
             "strength", "dexterity", "vitality", "intellect", "fireResistance", "iceResistance", "poisonResistance",
-            "dodge", "block", "thorns", "reflection", "itemFind"});
+            "dodge", "block", "thorns", "reflection", "itemFind");
     private boolean addedBeginningText = false;
 
     @SubscribeEvent
