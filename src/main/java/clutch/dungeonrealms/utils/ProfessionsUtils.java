@@ -44,16 +44,19 @@ public class ProfessionsUtils {
 
     public static int getLevel(ItemStack stack) {
         // Return level
+        if (stack.getTagCompound() == null || !stack.getTagCompound().hasKey("level")) return 0;
         return stack.getTagCompound().getInteger("level");
     }
 
     public static int getXP(ItemStack stack) {
         // Return xp
+        if (stack.getTagCompound() == null || !stack.getTagCompound().hasKey("XP")) return 0;
         return stack.getTagCompound().getInteger("XP");
     }
 
     public static int getMaxXP(ItemStack stack) {
         // Return max xp
+        if (stack.getTagCompound() == null || !stack.getTagCompound().hasKey("maxXP")) return 0;
         return stack.getTagCompound().getInteger("maxXP");
     }
 }

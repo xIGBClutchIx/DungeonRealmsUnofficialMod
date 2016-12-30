@@ -70,11 +70,12 @@ public class ArmorUtils {
             case "thorns":
                 return new Thorns(0);
             default:
-                return modifier;
+                return null;
         }
     }
 
     public static int getValueFromModifier(Modifier modifier) {
+        if (modifier == null) return 0;
         switch (modifier.getName()) {
             case "healthPoints":
                 return ((HealthPoints) modifier).getHealthPoints();
@@ -158,7 +159,7 @@ public class ArmorUtils {
 
     public static List<String> detectModifiers(ItemStack stack) {
         // If does not have nbt tags then return
-        if (!stack.hasTagCompound()) return new ArrayList<>();
+        if (stack.getTagCompound() == null) return new ArrayList<>();
         // If does not have nbt modifiers then return
         if (!stack.getTagCompound().hasKey("modifiers", 9)) return new ArrayList<>();
         NBTTagList modifiers = stack.getTagCompound().getTagList("modifiers", 8);

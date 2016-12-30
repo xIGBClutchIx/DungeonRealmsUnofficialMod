@@ -15,7 +15,7 @@ public class RealmRuneUtils {
         // Needs to have starting text
         if (starting == null || starting.isEmpty()) return "";
         // If does not have nbt tags then return
-        if (!stack.hasTagCompound()) return "";
+        if (stack.getTagCompound() == null) return "";
         // If does not have nbt display then return
         if (!stack.getTagCompound().hasKey("display", 10)) return "";
         NBTTagCompound display = stack.getTagCompound().getCompoundTag("display");

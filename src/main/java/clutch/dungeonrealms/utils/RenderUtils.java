@@ -24,7 +24,7 @@ public class RenderUtils {
         GlStateManager.tryBlendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
         int x = (res.getScaledWidth() - fontrenderer.getStringWidth(text)) / 2;
         int y = res.getScaledHeight() - 59 + yOffset;
-        if (!playerController.shouldDrawHUD()) y += 14;
+        if (playerController != null && !playerController.shouldDrawHUD()) y += 14;
         fontrenderer.drawStringWithShadow(text, x, y, 0xFFFFFF | (opacity << 24));
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
