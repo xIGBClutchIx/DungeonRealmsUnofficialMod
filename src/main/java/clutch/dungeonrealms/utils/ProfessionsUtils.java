@@ -8,32 +8,14 @@ import java.text.DecimalFormat;
 
 public class ProfessionsUtils {
 
-    public static String getXPBar(int currentXp, int maxXp) {
-        if (currentXp == 0 && maxXp == 0) return "";
-        String xpBar =  TextFormatting.GREEN + "";
-        if (maxXp != 0) {
-            xpBar = "" + TextFormatting.GRAY + currentXp + " " +  xpBar;
-        }
-        double percentXp = (double) (Math.round(100.0D * Double.parseDouble((new DecimalFormat("##.#").format(((double)currentXp / (double)maxXp))))));
-        if (percentXp <= 0 && (double) maxXp > 0) {
-            percentXp = 1;
-        }
-        double percentInterval = (100.0D / 50);
-        int barCount = 0;
-        while (percentXp > 0 && barCount < 50) {
-            percentXp -= percentInterval;
-            barCount++;
-            xpBar += "|";
-        }
-        xpBar += TextFormatting.RED;
-        while (barCount < 50) {
-            xpBar += "|";
-            barCount++;
-        }
-        if (maxXp != 0) {
-            xpBar = xpBar + TextFormatting.GRAY + " " + maxXp;
-        }
-        return xpBar;
+    public static String getXPBar(ItemStack stack) {
+        int maxXP = getMaxXP(stack);
+        if (maxXP == 0) return "";
+        int xp = getXP(stack);
+        String startingBar = TextFormatting.GRAY + "EXP: ";
+        String containsBar = "";
+        String expBarText = ItemStackUtils.getLore(stack, startingBar, containsBar, true);
+        return TextFormatting.GRAY + "" + xp + " " + expBarText  + TextFormatting.GRAY + " " + maxXP;
     }
 
     public static boolean isProfessionItem(ItemStack stack) {
@@ -43,19 +25,16 @@ public class ProfessionsUtils {
     }
 
     public static int getLevel(ItemStack stack) {
-        // Return level
         if (stack.getTagCompound() == null || !stack.getTagCompound().hasKey("level")) return 0;
         return stack.getTagCompound().getInteger("level");
     }
 
     public static int getXP(ItemStack stack) {
-        // Return xp
         if (stack.getTagCompound() == null || !stack.getTagCompound().hasKey("XP")) return 0;
         return stack.getTagCompound().getInteger("XP");
     }
 
     public static int getMaxXP(ItemStack stack) {
-        // Return max xp
         if (stack.getTagCompound() == null || !stack.getTagCompound().hasKey("maxXP")) return 0;
         return stack.getTagCompound().getInteger("maxXP");
     }

@@ -29,7 +29,7 @@ public class RenderOverlay {
                         // If does not have nbt tags then return
                         if (!stack.hasTagCompound()) return;
                         // Exp info
-                        String xpBar = ProfessionsUtils.getXPBar(ProfessionsUtils.getXP(stack), ProfessionsUtils.getMaxXP(stack));
+                        String xpBar = ProfessionsUtils.getXPBar(stack);
                         int expOffset = -10;
                         // Render exp and bar if able to and offset
                         if (!xpBar.isEmpty()) {
