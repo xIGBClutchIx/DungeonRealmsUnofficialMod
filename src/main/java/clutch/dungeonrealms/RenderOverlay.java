@@ -46,8 +46,8 @@ public class RenderOverlay {
                     if (RealmRuneUtils.isRealmRune(stack)) {
                         // If does not have nbt tags then return
                         if (!stack.hasTagCompound()) return;
-                        String realmTier = RealmRuneUtils.getLore(stack, TextFormatting.GRAY + "Tier: ");
-                        if (!realmTier.isEmpty()) {
+                        String realmTier = ItemStackUtils.getLore(stack, TextFormatting.GRAY + "Tier: ", "", false);
+                        if (!realmTier.trim().isEmpty()) {
                             RenderUtils.renderText(realmTier, -10, opacity);
                         }
                     }
