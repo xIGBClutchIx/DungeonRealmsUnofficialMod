@@ -1,16 +1,25 @@
 package clutch.dungeonrealms;
 
 import clutch.dungeonrealms.modifiers.Modifier;
+import clutch.dungeonrealms.reflection.ReflectionPlayerInventory;
 import clutch.dungeonrealms.utils.ArmorUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ArmorTooltipCompare {
@@ -27,37 +36,30 @@ public class ArmorTooltipCompare {
         ArmorUtils.ArmorType tooltipStackArmorType = ArmorUtils.getArmorType(tooltipStack);
         if (tooltipStackArmorType != ArmorUtils.ArmorType.NONE) {
             List<Modifier> tooltipModifiers = ArmorUtils.getModifiers(tooltipStack);
-            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-            switch (tooltipStackArmorType) {
-                case HELMET:
-                    ItemStack equippedHelmet = player.inventory.armorInventory[3];
-                    if (equippedHelmet != tooltipStack) {
-                        addCompareTooltip(event.getToolTip(), tooltipModifiers, equippedHelmet);
-                    }
-                    break;
-                case CHESTPLATE:
-                    ItemStack equippedChestplate = player.inventory.armorInventory[2];
-                    if (equippedChestplate != tooltipStack) {
-                        addCompareTooltip(event.getToolTip(), tooltipModifiers, equippedChestplate);
-                    }
-                    break;
-                case LEGGINGS:
-                    ItemStack equippedLeggings = player.inventory.armorInventory[1];
-                    if (equippedLeggings != tooltipStack) {
-                        addCompareTooltip(event.getToolTip(), tooltipModifiers, equippedLeggings);
-                    }
-                    break;
-                case BOOTS:
-                    ItemStack equippedBoots = player.inventory.armorInventory[0];
-                    if (equippedBoots != tooltipStack) {
-                        addCompareTooltip(event.getToolTip(), tooltipModifiers, equippedBoots);
-                    }
-                    break;
-                default:
-                    break;
+            int value = tooltipStackArmorType.ordinal() - 1;
+            if (value == -1) return;
+            ItemStack equipped = getItemstackFromArmor(value);
+            if (equipped != tooltipStack) {
+                addCompareTooltip(event.getToolTip(), tooltipModifiers, equipped);
             }
         }
     }
+
+    /**
+     * Hacky fix for 1.10.2 - 1.11 changes start
+     */
+    public ItemStack getItemstackFromArmor(int slot) {
+        Object armorInventory = ReflectionPlayerInventory.getArmorInventory();
+        if (armorInventory instanceof ItemStack[]) {
+            return ((ItemStack[]) armorInventory)[slot];
+        } else if (armorInventory instanceof List) {
+            return ((List<ItemStack>) armorInventory).get(slot);
+        }
+        return new ItemStack(Blocks.AIR);
+    }
+    /**
+     * Hacky fix for 1.10.2 - 1.11 changes end
+     */
 
     public void addCompareTooltip(List<String> tooltips, List<Modifier> tooltipModifiers, ItemStack equippedStacks) {
         if (tooltipModifiers.isEmpty()) return;

@@ -204,10 +204,10 @@ public class ArmorUtils {
     }
 
     public enum ArmorType {
-        HELMET,
-        CHESTPLATE,
-        LEGGINGS,
+        NONE,
         BOOTS,
-        NONE
+        LEGGINGS,
+        CHESTPLATE,
+        HELMET
     }
 }
