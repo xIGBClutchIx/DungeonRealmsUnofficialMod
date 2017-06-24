@@ -4,18 +4,21 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 
-import java.text.DecimalFormat;
-
 public class ProfessionsUtils {
 
     public static String getXPBar(ItemStack stack) {
-        int maxXP = getMaxXP(stack);
-        if (maxXP == 0) return "";
-        int xp = getXP(stack);
         String startingBar = TextFormatting.GRAY + "EXP: ";
         String containsBar = "";
         String expBarText = ItemStackUtils.getLore(stack, startingBar, containsBar, true);
-        return TextFormatting.GRAY + "" + xp + " " + expBarText  + TextFormatting.GRAY + " " + maxXP;
+        return TextFormatting.GRAY + "" + getXP(stack) + " " + expBarText  + TextFormatting.GRAY + " " + getMaxXP(stack);
+    }
+
+    public static String getMaxXP(ItemStack stack) {
+        String xp = ItemStackUtils.getLore(stack, TextFormatting.GRAY.toString(), " / ", true);
+        if (xp.contains(" / ")) {
+            return xp.split(" / ")[1];
+        }
+        return "?";
     }
 
     public static boolean isProfessionItem(ItemStack stack) {
@@ -30,12 +33,7 @@ public class ProfessionsUtils {
     }
 
     public static int getXP(ItemStack stack) {
-        if (stack.getTagCompound() == null || !stack.getTagCompound().hasKey("XP")) return 0;
-        return stack.getTagCompound().getInteger("XP");
-    }
-
-    public static int getMaxXP(ItemStack stack) {
-        if (stack.getTagCompound() == null || !stack.getTagCompound().hasKey("maxXP")) return 0;
-        return stack.getTagCompound().getInteger("maxXP");
+        if (stack.getTagCompound() == null || !stack.getTagCompound().hasKey("xp")) return 0;
+        return stack.getTagCompound().getInteger("xp");
     }
 }

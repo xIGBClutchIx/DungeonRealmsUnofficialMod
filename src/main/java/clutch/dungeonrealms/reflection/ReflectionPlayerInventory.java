@@ -13,6 +13,6 @@ public class ReflectionPlayerInventory {
     }
 
     private static Object getObjectFromField(String[] list) {
-        return ReflectionHelper.getPrivateValue(InventoryPlayer.class, Minecraft.getMinecraft().thePlayer.inventory, list);
+        return ReflectionHelper.getPrivateValue(InventoryPlayer.class, Minecraft.getMinecraft().player.inventory, list);
     }
 }

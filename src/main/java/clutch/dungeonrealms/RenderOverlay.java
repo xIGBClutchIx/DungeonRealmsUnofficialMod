@@ -21,7 +21,7 @@ public class RenderOverlay {
             // Checks
             if (remainingHighlight > 0 && stack != null) {
                 // Opacity
-                int opacity = (int)((float)remainingHighlight * 256.0F / 10.0F);
+                int opacity = (int)((float)remainingHighlight * 256.0 / 10.0);
                 if (opacity > 255) opacity = 255;
                 if (opacity > 0) {
                     // Pickaxe/Fishing Rod exp level and bar
@@ -34,7 +34,7 @@ public class RenderOverlay {
                         // Render exp and bar if able to and offset
                         if (!xpBar.isEmpty()) {
                             RenderUtils.renderText(xpBar, expOffset, opacity);
-                            expOffset = expOffset - 10;
+                            expOffset -= 10;
                         }
                         // Render Level
                         int level = ProfessionsUtils.getLevel(stack);

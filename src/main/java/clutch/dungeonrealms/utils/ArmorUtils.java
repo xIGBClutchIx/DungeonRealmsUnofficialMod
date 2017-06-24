@@ -1,16 +1,17 @@
 package clutch.dungeonrealms.utils;
 
-import clutch.dungeonrealms.modifiers.Modifier;
-import clutch.dungeonrealms.modifiers.armor.*;
-import clutch.dungeonrealms.modifiers.armor.health.HealthPoints;
-import clutch.dungeonrealms.modifiers.armor.health.HealthRegen;
-import clutch.dungeonrealms.modifiers.armor.resistance.FireResistance;
-import clutch.dungeonrealms.modifiers.armor.resistance.IceResistance;
-import clutch.dungeonrealms.modifiers.armor.resistance.PoisonResistance;
-import clutch.dungeonrealms.modifiers.armor.stats.Dexterity;
-import clutch.dungeonrealms.modifiers.armor.stats.Intellect;
-import clutch.dungeonrealms.modifiers.armor.stats.Strength;
-import clutch.dungeonrealms.modifiers.armor.stats.Vitality;
+import clutch.dungeonrealms.ItemAttributes;
+import clutch.dungeonrealms.attributes.Attribute;
+import clutch.dungeonrealms.attributes.armor.*;
+import clutch.dungeonrealms.attributes.armor.health.HealthPoints;
+import clutch.dungeonrealms.attributes.armor.health.HealthRegen;
+import clutch.dungeonrealms.attributes.armor.resistance.FireResistance;
+import clutch.dungeonrealms.attributes.armor.resistance.IceResistance;
+import clutch.dungeonrealms.attributes.armor.resistance.PoisonResistance;
+import clutch.dungeonrealms.attributes.armor.stats.Dexterity;
+import clutch.dungeonrealms.attributes.armor.stats.Intellect;
+import clutch.dungeonrealms.attributes.armor.stats.Strength;
+import clutch.dungeonrealms.attributes.armor.stats.Vitality;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,158 +22,126 @@ import java.util.List;
 
 public class ArmorUtils {
 
-    public static List<Modifier> getModifiers(ItemStack stack) {
-        List<Modifier> modifiers = new ArrayList<>();
-        for (String modifierString : ArmorUtils.detectModifiers(stack)) {
-            Modifier modifier = ArmorUtils.getModifier(modifierString, stack.getTagCompound());
-            if (modifier != null) {
-                modifiers.add(modifier);
-            }
-        }
-        return modifiers;
+    public static ItemAttributes getModifiers(ItemStack stack) {
+        ItemAttributes itemAttributes = new ItemAttributes();
+        itemAttributes.updateItemInfo(stack);
+        return itemAttributes;
     }
 
-    public static Modifier checkModifier(String currentModifier, Modifier modifier) {
-        if (modifier != null) return modifier;
-        switch (currentModifier) {
-            case "healthPoints":
-                return new HealthPoints(0);
-            case "healthRegen":
-                return new HealthRegen(0);
-            case "fireResistance":
-                return new FireResistance(0);
-            case "iceResistance":
-                return new IceResistance(0);
-            case "poisonResistance":
-                return new PoisonResistance(0);
-            case "dexterity":
-                return new Dexterity(0);
-            case "intellect":
-                return new Intellect(0);
-            case "strength":
-                return new Strength(0);
-            case "vitality":
-                return new Vitality(0);
-            case "armor":
-                return new Armor(0, 0);
-            case "block":
-                return new Block(0);
-            case "dodge":
-                return new Dodge(0);
-            case "dps":
-                return new Dps(0, 0);
-            case "energyRegen":
-                return new EnergyRegen(0);
-            case "itemFind":
-                return new ItemFind(0);
-            case "reflection":
-                return new Reflection(0);
-            case "thorns":
-                return new Thorns(0);
-            default:
-                return null;
-        }
-    }
-
-    public static int getValueFromModifier(Modifier modifier) {
-        if (modifier == null) return 0;
-        switch (modifier.getName()) {
-            case "healthPoints":
-                return ((HealthPoints) modifier).getHealthPoints();
-            case "healthRegen":
-                return ((HealthRegen) modifier).getHealthRegen();
-            case "fireResistance":
-                return ((FireResistance) modifier).getFireResistance();
-            case "iceResistance":
-                return ((IceResistance) modifier).getIceResistance();
-            case "poisonResistance":
-                return ((PoisonResistance) modifier).getPoisonResistance();
-            case "dexterity":
-                return ((Dexterity) modifier).getDexterity();
-            case "intellect":
-                return ((Intellect) modifier).getIntellect();
-            case "strength":
-                return ((Strength) modifier).getStrength();
-            case "vitality":
-                return ((Vitality) modifier).getVitality();
-            case "armor":
-                return ((Armor) modifier).getArmorMax();
-            case "block":
-                return ((Block) modifier).getBlock();
-            case "dodge":
-                return ((Dodge) modifier).getDodge();
-            case "dps":
-                return ((Dps) modifier).getDpsMax();
-            case "energyRegen":
-                return ((EnergyRegen) modifier).getEnergyRegen();
-            case "itemFind":
-                return ((ItemFind) modifier).getItemFind();
-            case "reflection":
-                return ((Reflection) modifier).getReflection();
-            case "thorns":
-                return ((Thorns) modifier).getThorns();
+    public static int getValueFromAttribute(Attribute attribute) {
+        if (attribute == null) return 0;
+        switch (attribute.getDisplayName()) {
+            case "HP":
+                return ((HealthPoints) attribute).getHealthPoints();
+            case "HP REGEN":
+                return ((HealthRegen) attribute).getHealthRegen();
+            case "FIRE RESISTANCE":
+                return ((FireResistance) attribute).getFireResistance();
+            case "ICE RESISTANCE":
+                return ((IceResistance) attribute).getIceResistance();
+            case "POISON RESISTANCE":
+                return ((PoisonResistance) attribute).getPoisonResistance();
+            case "DEX":
+                return ((Dexterity) attribute).getDexterity();
+            case "INT":
+                return ((Intellect) attribute).getIntellect();
+            case "STR":
+                return ((Strength) attribute).getStrength();
+            case "VIT":
+                return ((Vitality) attribute).getVitality();
+            case "ARMOR":
+                return ((Armor) attribute).getArmorMax();
+            case "BLOCK":
+                return ((Block) attribute).getBlock();
+            case "DODGE":
+                return ((Dodge) attribute).getDodge();
+            case "DPS":
+                return ((Dps) attribute).getDpsMax();
+            case "ENERGY REGEN":
+                return ((EnergyRegen) attribute).getEnergyRegen();
+            case "ITEM FIND":
+                return ((ItemFind) attribute).getItemFind();
+            case "REFLECTION":
+                return ((Reflection) attribute).getReflection();
+            case "THORNS":
+                return ((Thorns) attribute).getThorns();
             default:
                 return 0;
         }
     }
 
-    public static Modifier getModifier(String modifierString, NBTTagCompound tagCompound) {
-        switch (modifierString) {
-            case "healthPoints":
-                return new HealthPoints(tagCompound.getInteger(modifierString));
-            case "healthRegen":
-                return new HealthRegen(tagCompound.getInteger(modifierString));
-            case "fireResistance":
-                return new FireResistance(tagCompound.getInteger(modifierString));
-            case "iceResistance":
-                return new IceResistance(tagCompound.getInteger(modifierString));
-            case "poisonResistance":
-                return new PoisonResistance(tagCompound.getInteger(modifierString));
-            case "dexterity":
-                return new Dexterity(tagCompound.getInteger(modifierString));
-            case "intellect":
-                return new Intellect(tagCompound.getInteger(modifierString));
-            case "strength":
-                return new Strength(tagCompound.getInteger(modifierString));
-            case "vitality":
-                return new Vitality(tagCompound.getInteger(modifierString));
-            case "armor":
-                return new Armor(tagCompound.getInteger("armorMin"), tagCompound.getInteger("armorMax"));
-            case "block":
-                return new Block(tagCompound.getInteger(modifierString));
-            case "dodge":
-                return new Dodge(tagCompound.getInteger(modifierString));
-            case "dps":
-                return new Dps(tagCompound.getInteger("dpsMin"), tagCompound.getInteger("dpsMax"));
-            case "energyRegen":
-                return new EnergyRegen(tagCompound.getInteger(modifierString));
-            case "itemFind":
-                return new ItemFind(tagCompound.getInteger(modifierString));
-            case "reflection":
-                return new Reflection(tagCompound.getInteger(modifierString));
-            case "thorns":
-                return new Thorns(tagCompound.getInteger(modifierString));
+    public static Attribute getAttribute(String attributeString, ItemAttributes attribute) {
+        switch (attributeString) {
+            case "HP":
+                return attribute.healthPoints;
+            case "HP REGEN":
+                return attribute.healthRegen;
+            case "FIRE RESISTANCE":
+                return attribute.fireResistance;
+            case "ICE RESISTANCE":
+                return attribute.iceResistance;
+            case "POISON RESISTANCE":
+                return attribute.poisonResistance;
+            case "DEX":
+                return attribute.dexterity;
+            case "INT":
+                return attribute.intellect;
+            case "STR":
+                return attribute.strength;
+            case "VIT":
+                return attribute.vitality;
+            case "ARMOR":
+                return attribute.armor;
+            case "BLOCK":
+                return attribute.block;
+            case "DODGE":
+                return attribute.dodge;
+            case "DPS":
+                return attribute.dps;
+            case "ENERGY REGEN":
+                return attribute.energyRegen;
+            case "ITEM FIND":
+                return attribute.itemFind;
+            case "REFLECTION":
+                return attribute.reflection;
+            case "THORNS":
+                return attribute.thorns;
             default:
                 return null;
         }
     }
 
-    public static List<String> detectModifiers(ItemStack stack) {
+    public static List<Integer> getIntListFromList(ItemStack stack, String intName) {
         // If does not have nbt tags then return
         if (stack.getTagCompound() == null) return new ArrayList<>();
-        // If does not have nbt modifiers then return
-        if (!stack.getTagCompound().hasKey("modifiers", 9)) return new ArrayList<>();
-        NBTTagList modifiers = stack.getTagCompound().getTagList("modifiers", 8);
-        // If modifiers has not tags then return
-        if (modifiers.hasNoTags()) return new ArrayList<>();
-        // Loop through modifiers
-        List<String> modifiersList = new ArrayList<>();
-        for (int tagIndex = 0; tagIndex < modifiers.tagCount(); ++tagIndex) {
-            String modifierLine = modifiers.getStringTagAt(tagIndex);
-            modifiersList.add(modifierLine);
+        // If does not have nbt tag attributes then return
+        if (!stack.getTagCompound().hasKey("itemAttributes", 10)) return new ArrayList<>();
+        NBTTagCompound itemAttributes = stack.getTagCompound().getCompoundTag("itemAttributes");
+        // If attributes has not tags then return
+        if (itemAttributes.hasNoTags()) System.out.println(intName + ": No tags!");
+        // If attributes has not tags then return
+        if (!itemAttributes.hasKey(intName)) return new ArrayList<>();
+        // Return
+        NBTTagList tagList = itemAttributes.getTagList(intName, 3);
+        List<Integer> integerList = new ArrayList<>();
+        for (int tagIndex = 0; tagIndex < tagList.tagCount(); ++tagIndex) {
+            integerList.add(tagList.getIntAt(tagIndex));
         }
-        // Return modifier list
-        return modifiersList;
+        return integerList;
+    }
+
+    public static int getInt(ItemStack stack, String intName) {
+        // If does not have nbt tags then return
+        if (stack.getTagCompound() == null) return 0;
+        // If does not have nbt tag attributes then return
+        if (!stack.getTagCompound().hasKey("itemAttributes", 10)) return 0;
+        NBTTagCompound itemAttributes = stack.getTagCompound().getCompoundTag("itemAttributes");
+        // If attributes has not tags then return
+        if (itemAttributes.hasNoTags()) return 0;
+        // If attributes has not tags then return
+        if (!itemAttributes.hasKey(intName)) return 0;
+        // Return
+        return itemAttributes.getInteger(intName);
     }
 
     public static ArmorType getArmorType(ItemStack stack) {
