@@ -1,6 +1,5 @@
 package clutch.dungeonrealms;
 
-import clutch.dungeonrealms.attributes.Attribute;
 import clutch.dungeonrealms.reflection.ReflectionPlayerInventory;
 import clutch.dungeonrealms.utils.ArmorUtils;
 import net.minecraft.init.Blocks;
@@ -9,14 +8,10 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ArmorTooltipCompare {
 
-    private static final List<String> MODIFIERS_TO_COMPARE = Arrays.asList("ARMOR", "HP", "HP REGEN", "ENERGY REGEN", "DPS",
-            "STR", "DEX", "VIT", "INT", "FIRE RESISTANCE", "ICE RESISTANCE", "POISON RESISTANCE",
-            "DODGE", "BLOCK", "THORNS", "REFLECTION", "ITEM FIND");
     private boolean addedBeginningText = false;
 
     @SubscribeEvent
@@ -58,33 +53,25 @@ public class ArmorTooltipCompare {
             equippedAttributes = ArmorUtils.getModifiers(equippedStacks);
         }
         addedBeginningText = false;
-        for (String compareModifier : MODIFIERS_TO_COMPARE) {
+        for (String compareModifier : equippedAttributes.getAttributes()) {
             createTooltip(compareModifier, tooltips, itemAttributes, equippedAttributes);
         }
-        // TODO GEM FIND
     }
 
     public void createTooltip(String currentAttribute, List<String> tooltips, ItemAttributes tooltipAttributes, ItemAttributes equippedAttributes) {
         if (!addedBeginningText) {
-            // Comparison tooltip text
             tooltips.add("");
             tooltips.add(TextFormatting.GOLD + "Changes when equipped");
             addedBeginningText = true;
         }
-        Attribute modEquipped = ArmorUtils.getAttribute(currentAttribute, equippedAttributes);
-        Attribute modTooltip = ArmorUtils.getAttribute(currentAttribute, tooltipAttributes);
-        int modEquippedValue = ArmorUtils.getValueFromAttribute(modEquipped);
-        int modTooltipValue = ArmorUtils.getValueFromAttribute(modTooltip);
+        int modEquippedValue = equippedAttributes.getCompareValue(currentAttribute);
+        int modTooltipValue = tooltipAttributes.getCompareValue(currentAttribute);
 
         if (modEquippedValue != modTooltipValue) {
             if (modEquippedValue > modTooltipValue) {
-                if (modTooltip != null) {
-                    tooltips.add(TextFormatting.RED + "-" + (modEquippedValue - modTooltipValue) + " " + modTooltip.getDisplayName());
-                }
+                tooltips.add(TextFormatting.RED + "-" + (modEquippedValue - modTooltipValue) + " " + currentAttribute);
             } else {
-                if (modTooltip != null) {
-                    tooltips.add(TextFormatting.GREEN + "+" + (modTooltipValue - modEquippedValue) + " " + modTooltip.getDisplayName());
-                }
+                tooltips.add(TextFormatting.GREEN + "+" + (modTooltipValue - modEquippedValue) + " " + currentAttribute);
             }
         }
     }

@@ -8,16 +8,13 @@ public class HealthPoints extends Attribute {
 
     private int healthPoints = 0;
 
-    public HealthPoints() {
-        super("HP");
-    }
-
     @Override
     public void updateInfo(ItemStack stack) {
         this.healthPoints = ArmorUtils.getInt(stack, "healthPoints");
     }
 
-    public int getHealthPoints() {
+    @Override
+    public int getCompareValue() {
         return healthPoints;
     }
 }

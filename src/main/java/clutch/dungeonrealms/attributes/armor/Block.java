@@ -8,16 +8,13 @@ public class Block extends Attribute {
 
     private int block = 0;
 
-    public Block() {
-        super("BLOCK");
-    }
-
     @Override
     public void updateInfo(ItemStack stack) {
         this.block = ArmorUtils.getInt(stack, "block");
     }
 
-    public int getBlock() {
+    @Override
+    public int getCompareValue() {
         return block;
     }
 }

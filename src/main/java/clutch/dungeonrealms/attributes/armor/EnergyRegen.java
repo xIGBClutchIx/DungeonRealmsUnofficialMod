@@ -8,16 +8,13 @@ public class EnergyRegen extends Attribute {
 
     private int energyRegen = 0;
 
-    public EnergyRegen() {
-        super("ENERGY REGEN");
-    }
-
     @Override
     public void updateInfo(ItemStack stack) {
         this.energyRegen = ArmorUtils.getInt(stack, "energyRegen");
     }
 
-    public int getEnergyRegen() {
+    @Override
+    public int getCompareValue() {
         return energyRegen;
     }
 }

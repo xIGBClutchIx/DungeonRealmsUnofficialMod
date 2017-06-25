@@ -8,16 +8,13 @@ public class Dodge extends Attribute {
 
     private int dodge = 0;
 
-    public Dodge() {
-        super("DODGE");
-    }
-
     @Override
     public void updateInfo(ItemStack stack) {
         this.dodge = ArmorUtils.getInt(stack, "dodge");
     }
 
-    public int getDodge() {
+    @Override
+    public int getCompareValue() {
         return dodge;
     }
 }

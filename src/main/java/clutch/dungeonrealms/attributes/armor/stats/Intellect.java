@@ -8,16 +8,13 @@ public class Intellect extends Attribute {
 
     private int intellect = 0;
 
-    public Intellect() {
-        super("INT");
-    }
-
     @Override
     public void updateInfo(ItemStack stack) {
         this.intellect = ArmorUtils.getInt(stack, "intellect");
     }
 
-    public int getIntellect() {
+    @Override
+    public int getCompareValue() {
         return intellect;
     }
 }

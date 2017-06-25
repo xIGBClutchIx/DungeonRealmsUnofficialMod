@@ -8,16 +8,13 @@ public class FireResistance extends Attribute {
 
     private int fireResistance = 0;
 
-    public FireResistance() {
-        super("FIRE RESISTANCE");
-    }
-
     @Override
     public void updateInfo(ItemStack stack) {
         this.fireResistance = ArmorUtils.getInt(stack, "fireResistance");
     }
 
-    public int getFireResistance() {
+    @Override
+    public int getCompareValue() {
         return fireResistance;
     }
 }

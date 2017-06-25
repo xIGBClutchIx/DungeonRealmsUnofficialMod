@@ -8,16 +8,13 @@ public class HealthRegen extends Attribute {
 
     private int healthRegen = 0;
 
-    public HealthRegen() {
-        super("HP REGEN");
-    }
-
     @Override
     public void updateInfo(ItemStack stack) {
         this.healthRegen = ArmorUtils.getInt(stack, "healthRegen");
     }
 
-    public int getHealthRegen() {
+    @Override
+    public int getCompareValue() {
         return healthRegen;
     }
 }

@@ -8,15 +8,7 @@ import net.minecraft.item.ItemStack;
  */
 public abstract class Attribute {
 
-    private String displayName = "";
-
-    public Attribute(String displayName) {
-        this.displayName = displayName;
-    }
-
     public abstract void updateInfo(ItemStack stack);
+    public abstract int getCompareValue();
 
-    public String getDisplayName() {
-        return displayName;
-    }
 }

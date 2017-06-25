@@ -8,16 +8,13 @@ public class ItemFind extends Attribute {
 
     private int itemFind = 0;
 
-    public ItemFind() {
-        super("ITEM FIND");
-    }
-
     @Override
     public void updateInfo(ItemStack stack) {
         this.itemFind = ArmorUtils.getInt(stack, "itemFind");
     }
 
-    public int getItemFind() {
+    @Override
+    public int getCompareValue() {
         return itemFind;
     }
 }

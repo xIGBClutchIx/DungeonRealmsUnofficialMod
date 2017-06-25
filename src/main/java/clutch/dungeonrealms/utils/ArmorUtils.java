@@ -1,17 +1,6 @@
 package clutch.dungeonrealms.utils;
 
 import clutch.dungeonrealms.ItemAttributes;
-import clutch.dungeonrealms.attributes.Attribute;
-import clutch.dungeonrealms.attributes.armor.*;
-import clutch.dungeonrealms.attributes.armor.health.HealthPoints;
-import clutch.dungeonrealms.attributes.armor.health.HealthRegen;
-import clutch.dungeonrealms.attributes.armor.resistance.FireResistance;
-import clutch.dungeonrealms.attributes.armor.resistance.IceResistance;
-import clutch.dungeonrealms.attributes.armor.resistance.PoisonResistance;
-import clutch.dungeonrealms.attributes.armor.stats.Dexterity;
-import clutch.dungeonrealms.attributes.armor.stats.Intellect;
-import clutch.dungeonrealms.attributes.armor.stats.Strength;
-import clutch.dungeonrealms.attributes.armor.stats.Vitality;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,89 +15,6 @@ public class ArmorUtils {
         ItemAttributes itemAttributes = new ItemAttributes();
         itemAttributes.updateItemInfo(stack);
         return itemAttributes;
-    }
-
-    public static int getValueFromAttribute(Attribute attribute) {
-        if (attribute == null) return 0;
-        switch (attribute.getDisplayName()) {
-            case "HP":
-                return ((HealthPoints) attribute).getHealthPoints();
-            case "HP REGEN":
-                return ((HealthRegen) attribute).getHealthRegen();
-            case "FIRE RESISTANCE":
-                return ((FireResistance) attribute).getFireResistance();
-            case "ICE RESISTANCE":
-                return ((IceResistance) attribute).getIceResistance();
-            case "POISON RESISTANCE":
-                return ((PoisonResistance) attribute).getPoisonResistance();
-            case "DEX":
-                return ((Dexterity) attribute).getDexterity();
-            case "INT":
-                return ((Intellect) attribute).getIntellect();
-            case "STR":
-                return ((Strength) attribute).getStrength();
-            case "VIT":
-                return ((Vitality) attribute).getVitality();
-            case "ARMOR":
-                return ((Armor) attribute).getArmorMax();
-            case "BLOCK":
-                return ((Block) attribute).getBlock();
-            case "DODGE":
-                return ((Dodge) attribute).getDodge();
-            case "DPS":
-                return ((Dps) attribute).getDpsMax();
-            case "ENERGY REGEN":
-                return ((EnergyRegen) attribute).getEnergyRegen();
-            case "ITEM FIND":
-                return ((ItemFind) attribute).getItemFind();
-            case "REFLECTION":
-                return ((Reflection) attribute).getReflection();
-            case "THORNS":
-                return ((Thorns) attribute).getThorns();
-            default:
-                return 0;
-        }
-    }
-
-    public static Attribute getAttribute(String attributeString, ItemAttributes attribute) {
-        switch (attributeString) {
-            case "HP":
-                return attribute.healthPoints;
-            case "HP REGEN":
-                return attribute.healthRegen;
-            case "FIRE RESISTANCE":
-                return attribute.fireResistance;
-            case "ICE RESISTANCE":
-                return attribute.iceResistance;
-            case "POISON RESISTANCE":
-                return attribute.poisonResistance;
-            case "DEX":
-                return attribute.dexterity;
-            case "INT":
-                return attribute.intellect;
-            case "STR":
-                return attribute.strength;
-            case "VIT":
-                return attribute.vitality;
-            case "ARMOR":
-                return attribute.armor;
-            case "BLOCK":
-                return attribute.block;
-            case "DODGE":
-                return attribute.dodge;
-            case "DPS":
-                return attribute.dps;
-            case "ENERGY REGEN":
-                return attribute.energyRegen;
-            case "ITEM FIND":
-                return attribute.itemFind;
-            case "REFLECTION":
-                return attribute.reflection;
-            case "THORNS":
-                return attribute.thorns;
-            default:
-                return null;
-        }
     }
 
     public static List<Integer> getIntListFromList(ItemStack stack, String intName) {

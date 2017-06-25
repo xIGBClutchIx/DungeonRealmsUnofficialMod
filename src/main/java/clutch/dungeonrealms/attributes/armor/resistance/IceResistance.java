@@ -8,16 +8,13 @@ public class IceResistance extends Attribute {
 
     private int iceResistance = 0;
 
-    public IceResistance() {
-        super("ICE RESISTANCE");
-    }
-
     @Override
     public void updateInfo(ItemStack stack) {
         this.iceResistance = ArmorUtils.getInt(stack, "iceResistance");
     }
 
-    public int getIceResistance() {
+    @Override
+    public int getCompareValue() {
         return iceResistance;
     }
 }
