@@ -32,6 +32,7 @@ public class ItemAttributes {
         registerAttribute("DODGE", new Dodge());
         registerAttribute("DPS", new Dps());
         registerAttribute("ENERGY REGEN", new EnergyRegen());
+        registerAttribute("GEM FIND", new GemFind());
         registerAttribute("ITEM FIND", new ItemFind());
         registerAttribute("REFLECTION", new Reflection());
         registerAttribute("THORNS", new Thorns());

@@ -5,7 +5,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
-@Mod(modid = "dungeonrealmsunofficialmod", version = "1.1.0", clientSideOnly = true, acceptedMinecraftVersions="[1.9.4,)")
+@Mod(modid = "dungeonrealmsunofficialmod", version = "1.1.1", clientSideOnly = true, acceptedMinecraftVersions="[1.9.4,)")
 public class DungeonRealmsMod {
 
     @EventHandler
