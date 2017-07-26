@@ -3,6 +3,7 @@ package clutch.dungeonrealms.utils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.text.TextFormatting;
 
 public class ItemStackUtils {
 
@@ -39,6 +40,22 @@ public class ItemStackUtils {
             }
         }
         return "";
+    }
+
+    public static int getPlus(ItemStack itemStack) {
+        int plus = 0;
+        if (itemStack.hasDisplayName()) {
+            String displayName = TextFormatting.getTextWithoutFormattingCodes(itemStack.getDisplayName());
+            if (displayName != null && displayName.contains("[+")) {
+                String plusString = displayName.split("]")[0].split("\\[\\+")[1].trim();
+                try {
+                    plus = Integer.parseInt(plusString);
+                } catch (NumberFormatException e) {
+
+                }
+            }
+        }
+        return plus;
     }
 
     public static String getColor(ItemStack stack) {
