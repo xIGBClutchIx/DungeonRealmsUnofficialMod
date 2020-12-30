@@ -10,11 +10,21 @@ public class Thorns extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.thorns = ArmorUtils.getInt(stack, "thorns");
+        this.thorns = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return thorns;
+    }
+
+    @Override
+    public String getCompare() {
+        return "THORNS";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "THORNS";
     }
 }

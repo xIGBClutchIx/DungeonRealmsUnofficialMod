@@ -10,11 +10,21 @@ public class Block extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.block = ArmorUtils.getInt(stack, "block");
+        this.block = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return block;
+    }
+
+    @Override
+    public String getCompare() {
+        return "BLOCK";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "BLOCK";
     }
 }

@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = "dungeonrealmsunofficialmod", version = "1.1.1", clientSideOnly = true, acceptedMinecraftVersions="[1.9.4,)")
+@Mod(modid = "dungeonrealmsunofficialmod", version = "1.1.2", clientSideOnly = true, acceptedMinecraftVersions="[1.12.2,)")
 public class DungeonRealmsMod {
 
     @SideOnly(Side.CLIENT)

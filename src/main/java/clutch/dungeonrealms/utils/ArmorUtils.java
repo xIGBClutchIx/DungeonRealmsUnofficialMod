@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ArmorUtils {
@@ -19,35 +20,21 @@ public class ArmorUtils {
 
     public static List<Integer> getIntListFromList(ItemStack stack, String intName) {
         // If does not have nbt tags then return
-        if (stack.getTagCompound() == null) return new ArrayList<>();
+        if (stack.getTagCompound() == null) return Collections.singletonList(0);
         // If does not have nbt tag attributes then return
-        if (!stack.getTagCompound().hasKey("itemAttributes", 10)) return new ArrayList<>();
-        NBTTagCompound itemAttributes = stack.getTagCompound().getCompoundTag("itemAttributes");
+        if (!stack.getTagCompound().hasKey("modifiers", 10)) return Collections.singletonList(0);
+        NBTTagCompound itemAttributes = stack.getTagCompound().getCompoundTag("modifiers");
         // If attributes has not tags then return
-        if (itemAttributes.hasNoTags()) System.out.println(intName + ": No tags!");
+        if (itemAttributes.hasNoTags()) return Collections.singletonList(0);
         // If attributes has not tags then return
-        if (!itemAttributes.hasKey(intName)) return new ArrayList<>();
-        // Return
+        if (!itemAttributes.hasKey(intName)) return Collections.singletonList(0);
+        // Return all
         NBTTagList tagList = itemAttributes.getTagList(intName, 3);
         List<Integer> integerList = new ArrayList<>();
         for (int tagIndex = 0; tagIndex < tagList.tagCount(); ++tagIndex) {
             integerList.add(tagList.getIntAt(tagIndex));
         }
         return integerList;
-    }
-
-    public static int getInt(ItemStack stack, String intName) {
-        // If does not have nbt tags then return
-        if (stack.getTagCompound() == null) return 0;
-        // If does not have nbt tag attributes then return
-        if (!stack.getTagCompound().hasKey("itemAttributes", 10)) return 0;
-        NBTTagCompound itemAttributes = stack.getTagCompound().getCompoundTag("itemAttributes");
-        // If attributes has not tags then return
-        if (itemAttributes.hasNoTags()) return 0;
-        // If attributes has not tags then return
-        if (!itemAttributes.hasKey(intName)) return 0;
-        // Return
-        return itemAttributes.getInteger(intName);
     }
 
     public static ArmorType getArmorType(ItemStack stack) {
@@ -66,13 +53,13 @@ public class ArmorUtils {
         // Leggings
         if (stack.getItem() == Items.LEATHER_LEGGINGS || stack.getItem() == Items.CHAINMAIL_LEGGINGS ||
                 stack.getItem() == Items.IRON_LEGGINGS || stack.getItem() == Items.DIAMOND_LEGGINGS ||
-                stack.getItem() == Items.GOLDEN_LEGGINGS ) {
+                stack.getItem() == Items.GOLDEN_LEGGINGS) {
             return ArmorType.LEGGINGS;
         }
         // Boots
         if (stack.getItem() == Items.LEATHER_BOOTS || stack.getItem() == Items.CHAINMAIL_BOOTS ||
                 stack.getItem() == Items.IRON_BOOTS || stack.getItem() == Items.DIAMOND_BOOTS ||
-                stack.getItem() == Items.GOLDEN_BOOTS ) {
+                stack.getItem() == Items.GOLDEN_BOOTS) {
             return ArmorType.BOOTS;
         }
         return ArmorType.NONE;

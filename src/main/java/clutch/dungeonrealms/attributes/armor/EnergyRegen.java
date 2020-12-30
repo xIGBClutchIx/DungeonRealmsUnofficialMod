@@ -10,11 +10,21 @@ public class EnergyRegen extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.energyRegen = ArmorUtils.getInt(stack, "energyRegen");
+        this.energyRegen = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return energyRegen;
+    }
+
+    @Override
+    public String getCompare() {
+        return "ENERGY_REGEN";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "ENERGY REGEN";
     }
 }

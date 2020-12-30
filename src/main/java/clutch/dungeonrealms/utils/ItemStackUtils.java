@@ -3,7 +3,6 @@ package clutch.dungeonrealms.utils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.text.TextFormatting;
 
 public class ItemStackUtils {
 
@@ -26,36 +25,15 @@ public class ItemStackUtils {
         for (int i = 0; i < lore.tagCount(); ++i) {
             String loreLine = lore.getStringTagAt(i);
             if (!loreLine.startsWith(starting)) continue;
-            if (contains == null || contains.isEmpty()) {
-                if (removeStarting) {
-                    loreLine = loreLine.replaceFirst(starting, "");
-                }
-                return loreLine;
-            } else {
+            if (contains != null && !contains.isEmpty()) {
                 if (!loreLine.contains(contains)) continue;
-                if (removeStarting) {
-                    loreLine = loreLine.replaceFirst(starting, "");
-                }
-                return loreLine;
             }
+            if (removeStarting) {
+                loreLine = loreLine.replaceFirst(starting, "");
+            }
+            return loreLine;
         }
         return "";
-    }
-
-    public static int getPlus(ItemStack itemStack) {
-        int plus = 0;
-        if (itemStack.hasDisplayName()) {
-            String displayName = TextFormatting.getTextWithoutFormattingCodes(itemStack.getDisplayName());
-            if (displayName != null && displayName.contains("[+")) {
-                String plusString = displayName.split("]")[0].split("\\[\\+")[1].trim();
-                try {
-                    plus = Integer.parseInt(plusString);
-                } catch (NumberFormatException e) {
-
-                }
-            }
-        }
-        return plus;
     }
 
     public static String getColor(ItemStack stack) {

@@ -10,11 +10,21 @@ public class Dexterity extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.dexterity = ArmorUtils.getInt(stack, "dexterity");
+        this.dexterity = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return dexterity;
+    }
+
+    @Override
+    public String getCompare() {
+        return "DEXTERITY";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "DEX";
     }
 }

@@ -2,12 +2,8 @@ package clutch.dungeonrealms.reflection;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-
-import java.lang.reflect.Field;
 
 public class ReflectionGuiIngame {
 

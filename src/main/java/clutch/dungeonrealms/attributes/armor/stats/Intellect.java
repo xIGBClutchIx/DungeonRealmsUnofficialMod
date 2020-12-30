@@ -10,11 +10,21 @@ public class Intellect extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.intellect = ArmorUtils.getInt(stack, "intellect");
+        this.intellect = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return intellect;
+    }
+
+    @Override
+    public String getCompare() {
+        return "INTELLECT";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "INT";
     }
 }

@@ -10,11 +10,21 @@ public class Reflection extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.reflection = ArmorUtils.getInt(stack, "reflection");
+        this.reflection = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return reflection;
+    }
+
+    @Override
+    public String getCompare() {
+        return "REFLECTION";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "REFLECT";
     }
 }

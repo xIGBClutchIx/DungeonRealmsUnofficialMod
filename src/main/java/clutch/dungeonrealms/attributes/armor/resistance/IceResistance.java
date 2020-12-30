@@ -10,11 +10,21 @@ public class IceResistance extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.iceResistance = ArmorUtils.getInt(stack, "iceResistance");
+        this.iceResistance = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return iceResistance;
+    }
+
+    @Override
+    public String getCompare() {
+        return "ICE_RESISTANCE";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "ICE RESISTANCE";
     }
 }

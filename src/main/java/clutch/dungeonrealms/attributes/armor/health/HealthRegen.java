@@ -10,11 +10,21 @@ public class HealthRegen extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.healthRegen = ArmorUtils.getInt(stack, "healthRegen");
+        this.healthRegen = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return healthRegen;
+    }
+
+    @Override
+    public String getCompare() {
+        return "HPS";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "HP REGEN";
     }
 }

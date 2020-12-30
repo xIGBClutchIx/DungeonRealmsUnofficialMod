@@ -10,11 +10,21 @@ public class ItemFind extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.itemFind = ArmorUtils.getInt(stack, "itemFind");
+        this.itemFind = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return itemFind;
+    }
+
+    @Override
+    public String getCompare() {
+        return "ITEM_FIND";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "ITEM FIND";
     }
 }

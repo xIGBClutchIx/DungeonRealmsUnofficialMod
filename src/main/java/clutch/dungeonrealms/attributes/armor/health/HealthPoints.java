@@ -10,11 +10,21 @@ public class HealthPoints extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.healthPoints = ArmorUtils.getInt(stack, "healthPoints");
+        this.healthPoints = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return healthPoints;
+    }
+
+    @Override
+    public String getCompare() {
+        return "HEALTH_POINTS";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "HP";
     }
 }

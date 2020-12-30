@@ -3,8 +3,12 @@ package clutch.dungeonrealms;
 import clutch.dungeonrealms.reflection.ReflectionGuiIngame;
 import clutch.dungeonrealms.utils.ItemStackUtils;
 import clutch.dungeonrealms.utils.ProfessionsUtils;
-import clutch.dungeonrealms.utils.RealmRuneUtils;
-import clutch.dungeonrealms.utils.RenderUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.multiplayer.PlayerControllerMP;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -24,7 +28,7 @@ public class RenderOverlay {
             // Checks
             if (remainingHighlight > 0 && stack != null) {
                 // Opacity
-                int opacity = (int)((float)remainingHighlight * 256.0 / 10.0);
+                int opacity = (int)((float) remainingHighlight * 256.0 / 10.0);
                 if (opacity > 255) opacity = 255;
                 if (opacity > 0) {
                     // Pickaxe/Fishing Rod exp level and bar
@@ -33,29 +37,44 @@ public class RenderOverlay {
                         if (!stack.hasTagCompound()) return;
                         // Exp info
                         String xpBar = ProfessionsUtils.getXPBar(stack);
-                        int expOffset = -10;
-                        // Render exp and bar if able to and offset
+                        // Render exp and bar if able to
                         if (!xpBar.isEmpty()) {
-                            RenderUtils.renderText(xpBar, expOffset, opacity);
-                            expOffset -= 10;
+                            renderText(xpBar, 10, opacity);
                         }
-                        // Render Level
+                        // Render level
                         int level = ProfessionsUtils.getLevel(stack);
                         if (level != 0) {
-                            RenderUtils.renderText(TextFormatting.GRAY + "Level: " + ItemStackUtils.getColor(stack) + level, expOffset, opacity);
+                            renderText(TextFormatting.GRAY + "Level: " + ItemStackUtils.getColor(stack) + level, -10, opacity);
                         }
                     }
                     // Realm portal rune tier
-                    if (RealmRuneUtils.isRealmRune(stack)) {
+                    if (stack.getItem() == Items.NETHER_STAR) {
                         // If does not have nbt tags then return
                         if (!stack.hasTagCompound()) return;
                         String realmTier = ItemStackUtils.getLore(stack, TextFormatting.GRAY + "Tier: ", "", false);
                         if (!realmTier.trim().isEmpty()) {
-                            RenderUtils.renderText(realmTier, -10, opacity);
+                            renderText(realmTier, 10, opacity);
                         }
                     }
                 }
             }
         }
+    }
+
+    public void renderText(String text, int yOffset, int opacity) {
+        if (text.isEmpty()) return;
+        Minecraft minecraft = Minecraft.getMinecraft();
+        FontRenderer fontrenderer = minecraft.fontRenderer;
+        PlayerControllerMP playerController = minecraft.playerController;
+        ScaledResolution res = new ScaledResolution(minecraft);
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        int x = (res.getScaledWidth() - fontrenderer.getStringWidth(text)) / 2;
+        int y = res.getScaledHeight() - 59 + yOffset;
+        if (playerController != null && !playerController.shouldDrawHUD()) y += 14;
+        fontrenderer.drawStringWithShadow(text, x, y, 0xFFFFFF | (opacity << 24));
+        GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
     }
 }

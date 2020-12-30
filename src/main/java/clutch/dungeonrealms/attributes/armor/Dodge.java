@@ -10,11 +10,21 @@ public class Dodge extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.dodge = ArmorUtils.getInt(stack, "dodge");
+        this.dodge = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return dodge;
+    }
+
+    @Override
+    public String getCompare() {
+        return "DODGE";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "DODGE";
     }
 }

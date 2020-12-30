@@ -10,11 +10,21 @@ public class Strength extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.strength = ArmorUtils.getInt(stack, "strength");
+        this.strength = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return strength;
+    }
+
+    @Override
+    public String getCompare() {
+        return "STRENGTH";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "STR";
     }
 }

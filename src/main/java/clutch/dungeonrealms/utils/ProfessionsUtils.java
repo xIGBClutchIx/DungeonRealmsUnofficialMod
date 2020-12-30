@@ -7,7 +7,7 @@ import net.minecraft.util.text.TextFormatting;
 public class ProfessionsUtils {
 
     public static String getXPBar(ItemStack stack) {
-        String startingBar = TextFormatting.GRAY + "EXP: ";
+        String startingBar = TextFormatting.GRAY + "XP: ";
         String containsBar = "";
         String expBarText = ItemStackUtils.getLore(stack, startingBar, containsBar, true);
         return TextFormatting.GRAY + "" + getXP(stack) + " " + expBarText  + TextFormatting.GRAY + " " + getMaxXP(stack);

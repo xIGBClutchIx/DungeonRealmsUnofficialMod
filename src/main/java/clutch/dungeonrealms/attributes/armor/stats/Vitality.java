@@ -10,11 +10,21 @@ public class Vitality extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.vitality = ArmorUtils.getInt(stack, "vitality");
+        this.vitality = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return vitality;
+    }
+
+    @Override
+    public String getCompare() {
+        return "VITALITY";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "VIT";
     }
 }

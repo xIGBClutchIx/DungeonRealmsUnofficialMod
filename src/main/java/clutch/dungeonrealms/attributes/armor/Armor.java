@@ -12,12 +12,22 @@ public class Armor extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        List<Integer> armorInfo = ArmorUtils.getIntListFromList(stack, "armor");
+        List<Integer> armorInfo = ArmorUtils.getIntListFromList(stack, getCompare());
         if (armorInfo.size() >= 2) this.armorMax = armorInfo.get(1);
     }
 
     @Override
     public int getCompareValue() {
         return armorMax;
+    }
+
+    @Override
+    public String getCompare() {
+        return "ARMOR";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "ARMOR";
     }
 }

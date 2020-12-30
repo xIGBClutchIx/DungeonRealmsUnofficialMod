@@ -10,11 +10,21 @@ public class PoisonResistance extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        this.poisonResistance = ArmorUtils.getInt(stack, "poisonResistance");
+        this.poisonResistance = ArmorUtils.getIntListFromList(stack, getCompare()).get(0);
     }
 
     @Override
     public int getCompareValue() {
         return poisonResistance;
+    }
+
+    @Override
+    public String getCompare() {
+        return "POISON_RESISTANCE";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "POISON RESISTANCE";
     }
 }

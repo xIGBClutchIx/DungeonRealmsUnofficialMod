@@ -12,12 +12,22 @@ public class Dps extends Attribute {
 
     @Override
     public void updateInfo(ItemStack stack) {
-        List<Integer> dpsInfo = ArmorUtils.getIntListFromList(stack, "dps");
+        List<Integer> dpsInfo = ArmorUtils.getIntListFromList(stack, getCompare());
         if (dpsInfo.size() >= 2) this.dpsMax = dpsInfo.get(1);
     }
 
     @Override
     public int getCompareValue() {
         return dpsMax;
+    }
+
+    @Override
+    public String getCompare() {
+        return "DPS";
+    }
+
+    @Override
+    public String getTooltipName() {
+        return "DPS";
     }
 }

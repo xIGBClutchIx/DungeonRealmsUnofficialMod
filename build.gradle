@@ -1,32 +1,57 @@
 buildscript {
     repositories {
+        maven { url = "https://files.minecraftforge.net/maven" }
         jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath "net.minecraftforge.gradle:ForgeGradle:3.+"
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.1.1"
-def versions = "[1.9.4,)"
+apply plugin: "net.minecraftforge.gradle"
+apply plugin: "eclipse"
+apply plugin: "maven-publish"
+
+version = "1.1.2"
+def versions = "[1.12.2,)"
 group = "clutch.dungeonrealms"
 archivesBaseName = "DungeonRealmsUnofficialMod"
 
-sourceCompatibility = targetCompatibility = "1.7"
-compileJava {
-    sourceCompatibility = targetCompatibility = "1.7"
-}
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = "1.8"
 
 minecraft {
-    version = "1.11.2-13.20.0.2228"
-    runDir = "run"
-    mappings = "snapshot_20161220"
+    mappings channel: "snapshot", version: "20171003-1.12"
+    runs {
+        client {
+            workingDirectory project.file("run")
+
+            // Recommended logging data for a userdev environment
+            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
+
+            // Recommended logging level for the console
+            property "forge.logging.console.level", "debug"
+        }
+    }
 }
+
+dependencies {
+    minecraft "net.minecraftforge:forge:1.12.2-14.23.5.2855"
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": "dungeonrealmsunofficialmod",
+            "Specification-Vendor": "Clutch",
+            "Specification-Version": "1",
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"Clutch"
+        ])
+    }
+}
+jar.finalizedBy("reobfJar") 
 
 processResources {
     inputs.property "version", project.version
@@ -34,7 +59,7 @@ processResources {
 
     from (sourceSets.main.resources.srcDirs) {
         include "mcmod.info"
-        expand 'version': project.version, 'mcversion': versions
+        expand "version": project.version, "mcversion": versions
     }
 
     from (sourceSets.main.resources.srcDirs) {
